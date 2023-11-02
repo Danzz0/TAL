@@ -1,8 +1,7 @@
-import { Produto } from "./Produtos";
+import { Produto } from "./Produto";
 
 export class Livro extends Produto {
     private _titulo: string;
-
     private _anoDeLanc: Date;
     private _editora: string;
     private _autor: string;

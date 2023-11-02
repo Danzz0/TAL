@@ -1,4 +1,4 @@
-export class Produto {
+export abstract class Produto {
     private _tipoDeProduto: string;
     private _nomeDoFornecedor: string;
     private _cnpjDoFornecedor: string;

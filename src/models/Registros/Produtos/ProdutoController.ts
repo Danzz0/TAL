@@ -1,9 +1,10 @@
-export abstract class Produto{
+export class ProdutoController {
     private _tipo: string;
-
-    constructor(tipoDeProduto:string){
-        this._tipo = tipoDeProduto;
+    private _meusProdutos:[] = []
+    constructor(tipo, _meusProdutos){
+        
     }
+
     //Tipo
     public get tipoDeProduto(): string {
         return this._tipo;

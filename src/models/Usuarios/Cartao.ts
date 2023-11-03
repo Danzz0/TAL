@@ -16,7 +16,6 @@ export class Cartao {
             this._nomeBanco = nomeDoBanco;
             this._agencia = nomeAgencia;
             this._saldo = saldo;
-
         } else {
             throw new Error("Erro nos dados do cartão ou no CVV")
         }

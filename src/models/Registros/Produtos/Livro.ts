@@ -1,20 +1,22 @@
 import { Produto } from "./Produto";
 
-export class Livro extends Produto {
+export class Livro extends Produto{
     private _titulo: string;
     private _anoDeLanc: Date;
     private _editora: string;
     private _autor: string;
     private _sinopse: string;
+    private _precoDeVenda: number;
 
-    constructor(titulo: string, autor: string, editora: string, anoDeLancamento: Date, sinopse: string) {
-        super()
+    constructor(tipoDeProduto:string, titulo: string, autor: string, editora: string, anoDeLancamento: Date, sinopse: string, preco:number) {
+        super(tipoDeProduto)
+
         this._titulo = titulo;
         this._autor = autor;
         this._editora = editora;
         this._anoDeLanc = anoDeLancamento;
         this._sinopse = sinopse;
-
+        this._precoDeVenda = preco;
     }
 
 
@@ -57,6 +59,14 @@ export class Livro extends Produto {
     }
     public set sinopse(value: string) {
         this._sinopse = value;
+    }
+
+    //Preço do livro
+    public get sale(): number {
+        return this._precoDeVenda;
+    }
+    public set sale(value: number) {
+        this._precoDeVenda = value;
     }
 
 

@@ -5,17 +5,61 @@ export class Estoque {
     
 
     private _listaDeProdutos: Produto[] = [];
-
+    private _produtosOrganizados: { [key: string]: Produto[] } = {}; // minha key vai servir como índice
     // private _listaDeCompras:Compra[][] = []
 
 
     
     constructor(meuProduto:Produto){
 
-      this._listaDeProdutos.push(meuProduto)
+        this._listaDeProdutos.push(meuProduto)
+        
+
+        for (let produto of this._listaDeProdutos) { // for of serve para iterar entre os valores dos elementos
+            //produto = Produto[i]
+            const tipo = produto.constructor.name;
+            // tipo = "Livro, Caderno...."
+            if (!this._produtosOrganizados[tipo]) {
+                this._produtosOrganizados[tipo] = [];
+            }
+            this._produtosOrganizados[tipo].push(produto);
+        }
 
     }
 
+
+
+    get produtos(){
+        let response:string;
+
+        for (const tipo in this._produtosOrganizados) { // for in serve para iterar entre os valores dos índices dos elementos
+            response +=`    ${tipo}: ${JSON.stringify(this._produtosOrganizados[tipo])}`;
+        }
+
+        return response
+    }
+
+
+
+    /*
+    
+        const produtosOrganizados: { [key: string]: any[] } = {};
+
+        for (const produto of listaDeProdutos) {
+            const tipo = produto.constructor.name;
+            if (!produtosOrganizados[tipo]) {
+                produtosOrganizados[tipo] = [];
+            }
+            produtosOrganizados[tipo].push(produto);
+        }
+
+        console.log("_listaDeProdutos:");
+        for (const tipo in produtosOrganizados) {
+            console.log(`    ${tipo}: ${JSON.stringify(produtosOrganizados[tipo])}`);
+        }
+            
+            
+    */
     
 
 

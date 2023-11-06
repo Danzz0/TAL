@@ -30,7 +30,7 @@ export class Estoque {
 
 
     get produtos(){
-        let response:string;
+        let response:string ="";
 
         for (const tipo in this._produtosOrganizados) { // for in serve para iterar entre os valores dos índices dos elementos
             response +=`    ${tipo}: ${JSON.stringify(this._produtosOrganizados[tipo])}`;

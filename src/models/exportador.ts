@@ -1,9 +1,9 @@
 export * from "./Usuarios/Cartao";
 export * from "./Usuarios/Cliente";
 export * from "./Usuarios/Usuario";
-export * from "./Registros/Produtos/Livro";
-export * from "./Registros/Produtos/Produto";
-export * from "./Registros/Compra";
-export * from "./Registros/Estoque";
-
-
+export * from "./Produtos/Livro";
+export * from "./Produtos/Produto";
+export * from "./Registros/Compras/Compra";
+export * from "./Biblioteca/Bancos/BancoDeEstoque";
+export * from "../controllers/RegistroCtrl/ProdutoController";
+export * from "../views/BibliotecaUI";

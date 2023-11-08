@@ -1,12 +1,12 @@
-import { Produto, Compra } from "../exportador";
+import { Produto, Compra } from "../../exportador";
 
-export class Estoque {
+export class BancoDeEstoque {
    
-    
+    // listas de todos os tipos de produtos (pertence a biblioteca)
 
     private _listaDeProdutos: Produto[] = [];
     private _produtosOrganizados: { [key: string]: Produto[] } = {}; // minha key vai servir como índice
-    // private _listaDeCompras:Compra[][] = []
+    
 
 
     

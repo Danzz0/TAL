@@ -22,7 +22,7 @@ export class Cartao {
 
     }
 
-
+    // Controller
     private verificaCartao(cardNum: string, cvv: string): boolean {
 
 

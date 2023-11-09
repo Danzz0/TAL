@@ -1,4 +1,4 @@
-import { Produto, Compra } from "../../exportador";
+import { Produto } from "../../exportador";
 
 export class BancoDeEstoque {
    

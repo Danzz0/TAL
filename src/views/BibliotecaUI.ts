@@ -31,9 +31,53 @@ export class BibliotecaUI{
     }
 
 
-    public RegistrarConta_CLI(): void{
+    public registrarConta_CLI(): void{
+        let nome:string;
+        let email:string;
+        let pass:string;
+        let data:Date = new Date(); 
+        let cep:string;
+        let card: Cartao;
+
+
+        console.log("===========Biblioteca===========");
+        console.log("     Deseja criar uma conta?  \n");
+        //const prompt = iconv.decode(rl.question(iconv.encode("Digite sua mensagem:", "utf8")), 'utf8');
+        nome =  rl.question('Digite o seu nome: ');
+        email = rl.question('Digite o seu email: ');
+        pass = rl.question('Crie uma senha: ', {hideEchoBack:true});
+        // data = rl.question('Digite a sua data de nascimento:');
+        cep = rl.question('Digite seu o cep: ');
+        
+        if(rl.keyInSN('você possui um cartao?(S/N)\n')){
+            card = rl.question('Digite o n° do seu cartao: ');
+            // verificar se o cartao existe e associá-lo ao meu cliente
+        } else {
+            this.registrarCartao();
+        }
+        console.log("processando dados... \n")
+
+        const cli1 = new Cliente(nome, email, pass, data, cep, card);
+        console.log(cli1);
+
 
     }
+
+    /*
+
+        // Handle the secret text (e.g. password).
+            var favFood = rl.question('What is your favorite food? ', {
+                hideEchoBack: true // The typed text on screen is hidden by `*` (default).
+        });
+
+        constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao:Cartao){
+        super(nome,email,senha,dataDeNascimento);
+
+        this._cartao = cartao;
+        this._cep = cep
+    }
+    
+    */
 
 
     public registrarCartao(): void{

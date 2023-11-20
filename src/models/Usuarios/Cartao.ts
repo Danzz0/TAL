@@ -2,7 +2,7 @@ export class Cartao {
 
     private _nomeBanco: string;
     private _agencia: string;
-    private _cardNum: string;
+    private _cardNum: string; // ID 
     private _cvv: string;
     private _saldo: number;
 

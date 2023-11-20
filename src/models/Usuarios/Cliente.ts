@@ -10,10 +10,12 @@ export class Cliente extends Usuario{
     
      
 
-    constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao:Cartao){
+    constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao?:Cartao){
         super(nome,email,senha,dataDeNascimento);
 
-        this._cartao = cartao;
+        if(cartao){
+            this._cartao = cartao;
+        } 
         this._cep = cep
     }
 

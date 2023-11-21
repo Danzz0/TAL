@@ -1,16 +1,17 @@
 import {Cartao, BancoDeUsuarios} from "../models/exportador";
 
 export class CartaoController{
-    private _numCard:string;
+    private _cartaoSelected: Cartao;
+    
 
 
-
-    public existeCartao(num:string, listaCard:Cartao[]): boolean{
+    public existeCartao(num:string, listaCard:Cartao[]): Boolean{
         
         
         let encontrado = listaCard.some((value,index) =>{
                 if(value.cardNum == num){
-                    return true
+                    this._cartaoSelected = value;
+                    return true;
                 } else {
                     return false;
                 }
@@ -21,6 +22,13 @@ export class CartaoController{
 
         //     }
         // }
-        return encontrado
+        return encontrado;
     }
+
+
+    public get cartaoSelected(): Cartao {
+        return this._cartaoSelected;
+    }
+    
+
 }

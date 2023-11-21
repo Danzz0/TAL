@@ -1,9 +1,9 @@
 import * as rl from 'readline-sync'
-import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController} from '../models/exportador'
+import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios} from '../models/exportador'
 
 export class BibliotecaUI{
     
-
+    private _CardEstq = new BancoDeUsuarios();
 
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
@@ -37,51 +37,49 @@ export class BibliotecaUI{
         let pass:string;
         let data:Date = new Date(); 
         let cep:string;
+        let numCard:string;
         let card: Cartao;
-
+       
 
         console.log("===========Biblioteca===========");
         console.log("     Deseja criar uma conta?  \n");
-        //const prompt = iconv.decode(rl.question(iconv.encode("Digite sua mensagem:", "utf8")), 'utf8');
         nome =  rl.question('Digite o seu nome: ');
         email = rl.question('Digite o seu email: ');
         pass = rl.question('Crie uma senha: ', {hideEchoBack:true});
-        // data = rl.question('Digite a sua data de nascimento:');
+        // data = rl.question('Digite a sua data de nascimento:') (a ser implementado);
         cep = rl.question('Digite seu o cep: ');
         
-        if(rl.keyInSN('você possui um cartao?(S/N)\n')){
+        if(rl.keyInYN('Voce possui um cartao?')){
             card = rl.question('Digite o n° do seu cartao: ');
             let ctrlCard = new CartaoController();
-            ctrlCard.existeCartao();
+            //se o cartão existe:
+            if(ctrlCard.existeCartao(numCard, this._CardEstq.meusCartoes)){
+                card = ctrlCard.cartaoSelected;       // vincula esse cartao à conta do cliente
+            } else {
+                if(rl.keyInYN('O senhor deseja registrar um cartao?')){
+                    card = this.registrarCartao();
+                } else {
+                    card = null;
+                    console.log("Ok, conta sendo criada...")
+                }
+            }
+        } else if(rl.keyInYN("O senhor deseja registrar um cartao?(S/N) ")){            
+            card = this.registrarCartao();
         } else {
-            this.registrarCartao();
+            card = null
         }
         console.log("processando dados... \n")
 
-        const cli1 = new Cliente(nome, email, pass, data, cep, card);
+        let cli1 = new Cliente(nome, email, pass, data, cep, card);
         console.log(cli1);
 
 
     }
 
-    /*
+  
 
-        // Handle the secret text (e.g. password).
-            var favFood = rl.question('What is your favorite food? ', {
-                hideEchoBack: true // The typed text on screen is hidden by `*` (default).
-        });
-
-        constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao:Cartao){
-        super(nome,email,senha,dataDeNascimento);
-
-        this._cartao = cartao;
-        this._cep = cep
-    }
     
-    */
-
-
-    public registrarCartao(): void{
+    public registrarCartao(): Cartao{
         let banco:string;
         let agencia:string; 
         let cardNum:string;
@@ -98,8 +96,11 @@ export class BibliotecaUI{
         console.log("processando dados... \n")
 
         const card1 = new Cartao(banco, agencia, cardNum, cvv, saldo);
-        console.log(card1);
-        // const estoq2 = new Estoque(card1) vai ser implementado 
+        
+        this._CardEstq.addCartao(card1);
+        console.log(this._CardEstq.meusCartoes); // não possui memória (apaga os cartões toda vez que o código reinicia)
+
+        return card1;
     }
 
 
@@ -118,18 +119,20 @@ export class BibliotecaUI{
         } else {
             switch(options[index]){
                 case 'Registrar um livro':
-                    console.log(`ok, excecutando ${options[index]} \n`)
+                    console.log(`ok, excecutando ${options[index]} \n`);
                     this.registrarLivro();
 
                     break;
                 case 'Registrar conta de cliente':
-                    console.log(`ok, excecutando ${options[index]} \n`)
+                    console.log(`ok, excecutando ${options[index]} \n`);
+                    this.registrarConta_CLI();
                     console.log("Finalizado CLI");
 
                     break;
                 case 'Registrar cartão de crédito':
+                    console.log(`ok, excecutando ${options[index]} \n`);
+                    this.registrarCartao();
                     console.log("Finalizando CRD");
-                    console.log(`ok, excecutando ${options[index]} \n`)
 
                     break;
                 default:
@@ -145,3 +148,20 @@ export class BibliotecaUI{
 }
 
 /*"Game of Thrones", "J. R. R. Martin", "Viena", new Date(), "OJASNISAI", 25*/
+
+
+  /* testes da readlineSync
+
+        // Handle the secret text (e.g. password).
+            var favFood = rl.question('What is your favorite food? ', {
+                hideEchoBack: true // The typed text on screen is hidden by `*` (default).
+        });
+
+        constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao:Cartao){
+        super(nome,email,senha,dataDeNascimento);
+
+        this._cartao = cartao;
+        this._cep = cep
+    }
+    
+    */

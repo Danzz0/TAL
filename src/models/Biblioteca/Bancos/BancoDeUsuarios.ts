@@ -1,10 +1,11 @@
 import {Cartao} from "../../exportador";
 export class BancoDeUsuarios{
 
-    private _listaDeCartoes: Cartao[];
+    private _listaDeCartoes: Cartao[] = [];
    
 
     public addCartao(card:Cartao):void{
+        
         this._listaDeCartoes.push(card);
     }
 

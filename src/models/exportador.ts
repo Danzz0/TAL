@@ -6,5 +6,7 @@ export * from "./Produtos/Produto";
 export * from "./Registros/Compra";
 export * from "./Registros/Venda";
 export * from "./Biblioteca/Bancos/BancoDeEstoque";
-export * from "../controllers/RegistroCtrl/ProdutoController";
+export * from "./Biblioteca/Bancos/BancoDeUsuarios";
+export * from "../controllers/ProdutoController";
 export * from "../views/BibliotecaUI";
+export * from "../controllers/CartaoController"

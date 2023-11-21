@@ -1,5 +1,5 @@
 import * as rl from 'readline-sync'
-import {Livro, Produto, BancoDeEstoque, Cartao, Cliente} from '../models/exportador'
+import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController} from '../models/exportador'
 
 export class BibliotecaUI{
     
@@ -51,7 +51,8 @@ export class BibliotecaUI{
         
         if(rl.keyInSN('você possui um cartao?(S/N)\n')){
             card = rl.question('Digite o n° do seu cartao: ');
-            // verificar se o cartao existe e associá-lo ao meu cliente
+            let ctrlCard = new CartaoController();
+            ctrlCard.existeCartao();
         } else {
             this.registrarCartao();
         }

@@ -8,8 +8,8 @@ export class Livro extends Produto{
     private _sinopse: string;
     private _precoDeVenda: number;
 
-    constructor(tipoDeProduto:string, titulo: string, autor: string, editora: string, anoDeLancamento: Date, sinopse: string, preco:number) {
-        super(tipoDeProduto)
+    constructor(id:number,tipoDeProduto:string, titulo: string, autor: string, editora: string, anoDeLancamento: Date, sinopse: string, preco:number) {
+        super(id, tipoDeProduto)
 
         this._titulo = titulo;
         this._autor = autor;

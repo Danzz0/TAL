@@ -4,13 +4,15 @@ import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, Banco
 export class BibliotecaUI{
     
     private _CardEstq = new BancoDeUsuarios();
-
+    private _Estq = new BancoDeEstoque();
+    
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
         let autor:string;
         let editora:string; 
         let info:string;
         let preco:number;
+        let id:number;
         console.log("===========Biblioteca===========");
         console.log("     Deseja criar um livro?     \n");
         //const prompt = iconv.decode(rl.question(iconv.encode("Digite sua mensagem:", "utf8")), 'utf8');
@@ -19,15 +21,32 @@ export class BibliotecaUI{
         info = rl.question('Qual a sua sinopse? ');
         autor = rl.question('Qual o seu autor? ');
         preco = rl.question('Qual o seu preco? R$');
+        id = rl.question('Crie um id: ');
+
         console.log("processando dados... \n")
         
 
-        const prod1 = new Livro("livro", titulo, autor, editora, new Date(), info, preco)
-        const estoq = new BancoDeEstoque(prod1); // vou ter que criar um método para adicionar objetos
-
+        const book1 = new Livro(id,"livro", titulo, autor, editora, new Date(), info, preco)
+        this._Estq.addLivro(book1);
         console.log("Seu Livro foi criado e armazenado no nosso estoque: \n")
+        
+        console.log(this.showProdutos(this._Estq.meusProdutos));
+    }
 
-        console.log(estoq.produtos);
+    public showProdutos(prods:Produto[][]): string{
+        let response:string = "";
+        let tipo:string = "";
+        console.log("teste1")
+        for(let i=0; i < prods.length; i++){
+            var j = 0;
+            do{
+                tipo = `${prods[i][j].constructor.name}` // PRECISA TERMINAR ISSO AQUI
+                response += `${tipo}: ${(prods[0][0])[0]}`; // WTF??!!!!
+                j++;
+            }while(j < prods[i].length);
+        }
+        
+        return response;
     }
 
 
@@ -102,6 +121,8 @@ export class BibliotecaUI{
 
         return card1;
     }
+
+   
 
 
 

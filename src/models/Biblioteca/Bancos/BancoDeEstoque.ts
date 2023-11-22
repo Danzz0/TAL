@@ -1,66 +1,89 @@
-import { Produto } from "../../exportador";
+import { Produto,Livro } from "../../exportador";
 
 export class BancoDeEstoque {
    
     // listas de todos os tipos de produtos (pertence a biblioteca)
 
-    private _listaDeProdutos: Produto[] = [];
-    private _produtosOrganizados: { [key: string]: Produto[] } = {}; // minha key vai servir como índice
+    private _listaDeProdutos: Produto[][] = [];
+    private _livros: Livro[] = [];
     
-
-
     
-    constructor(meuProduto:Produto){
+    
+    constructor(){
 
-        this._listaDeProdutos.push(meuProduto)
+        
+        /*
+       
+        */
+
+        this._listaDeProdutos.push(this._livros)
+    }
+
+    public addLivro(book:Livro): void{
+        // aqui vai ter que ter uma verificação update
+        if(this.verificaProd(book)){
+            console.log("O livro já existe!")
+            // o livro já existe
+        } else {
+            this._livros.push(book)
+        }
         
 
-        for (let produto of this._listaDeProdutos) { // for of serve para iterar entre os valores dos elementos
-            //produto = Produto[i]
-            const tipo = produto.constructor.name;
-            // tipo = "Livro, Caderno...."
-            if (!this._produtosOrganizados[tipo]) {
-                this._produtosOrganizados[tipo] = [];
+    }
+    
+        
+    private verificaProd(prod:Produto): boolean{
+        var encontrado: boolean = false;
+        for(let i = 0; i < this._listaDeProdutos.length; i++){
+            for(let j = 0; j < this._listaDeProdutos[i].length; j++){
+                if(this._listaDeProdutos[i][j].id == prod.id){
+                    // o produto ja existe
+                    encontrado = true;
+                    break;
+                } else {
+                    encontrado = false;
+                    break;
+                }
             }
-            this._produtosOrganizados[tipo].push(produto);
+            if(encontrado){
+                break;
+            }
+            
         }
 
+        return encontrado;
     }
 
 
-
-    get produtos(){
-        let response:string ="";
-
-        for (const tipo in this._produtosOrganizados) { // for in serve para iterar entre os valores dos índices dos elementos
-            response +=`    ${tipo}: ${JSON.stringify(this._produtosOrganizados[tipo])}`;
-        }
-
-        return response
+    public get meusLivros(): Livro[] {
+        return this._livros;
     }
+    
 
-
+    public get meusProdutos(): Produto[][] {
+        return this._listaDeProdutos;
+    }
+    public set meusProdutos(value: Produto[][]) {
+        this._listaDeProdutos = value;
+    }
 
     /*
-    
-        const produtosOrganizados: { [key: string]: any[] } = {};
+        [ [livro,livro],
+          [livro,livro],
+          [livro,livro],
+                         ]
 
-        for (const produto of listaDeProdutos) {
-            const tipo = produto.constructor.name;
-            if (!produtosOrganizados[tipo]) {
-                produtosOrganizados[tipo] = [];
-            }
-            produtosOrganizados[tipo].push(produto);
-        }
-
-        console.log("_listaDeProdutos:");
-        for (const tipo in produtosOrganizados) {
-            console.log(`    ${tipo}: ${JSON.stringify(produtosOrganizados[tipo])}`);
-        }
-            
-            
     */
-    
+
+
+
+    // get produtos(){
+    //     let response:string ="";
+
+   
+
+    //     return response
+    // }
 
 
 

@@ -1,7 +1,8 @@
 export abstract class Produto{
     private _tipo: string;
-
-    constructor(tipoDeProduto:string){
+    private _id: number;
+    
+    constructor(id:number, tipoDeProduto:string){
         this._tipo = tipoDeProduto;
     }
     //Tipo
@@ -10,5 +11,14 @@ export abstract class Produto{
     }
     public set tipoDeProduto(value: string) {
         this._tipo = value;
+    }
+
+
+    //ID
+    public get id(): number {
+        return this._id;
+    }
+    public set id(value: number) {
+        this._id = value;
     }
 }

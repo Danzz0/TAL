@@ -15,7 +15,6 @@ export class BibliotecaUI{
         let id:number;
         console.log("===========Biblioteca===========");
         console.log("     Deseja criar um livro?     \n");
-        //const prompt = iconv.decode(rl.question(iconv.encode("Digite sua mensagem:", "utf8")), 'utf8');
         titulo =  rl.question('Qual o titulo? ');
         editora = rl.question('Qual a sua editora? ');
         info = rl.question('Qual a sua sinopse? ');
@@ -33,17 +32,22 @@ export class BibliotecaUI{
         console.log(this.showProdutos(this._Estq.meusProdutos));
     }
 
+
+
     public showProdutos(prods:Produto[][]): string{
         let response:string = "";
         let tipo:string = "";
-        console.log("teste1")
+        let elements:string = "";
+       
         for(let i=0; i < prods.length; i++){
-            var j = 0;
-            do{
-                tipo = `${prods[i][j].constructor.name}` // PRECISA TERMINAR ISSO AQUI
-                response += `${tipo}: ${(prods[0][0])[0]}`; // WTF??!!!!
-                j++;
-            }while(j < prods[i].length);
+            tipo = `${prods[i][0].constructor.name}` 
+            for(let j = 0; j < prods[i].length; j++){
+                for (const [key, value] of Object.entries(prods[i][j])){
+                    elements += `${key}: ${value.splice()}\n` 
+                }
+            }
+            
+            response += `${tipo}s: {${elements}},\n`   
         }
         
         return response;
@@ -106,7 +110,6 @@ export class BibliotecaUI{
         let saldo:number;
         console.log("===========Biblioteca===========");
         console.log(" Insira dos dados do seu cartão? \n");
-        //const prompt = iconv.decode(rl.question(iconv.encode("Digite sua mensagem:", "utf8")), 'utf8');
         banco =  rl.question('Qual o banco? ');
         agencia = rl.question('Qual a sua agencia? ');
         cardNum = rl.question('Qual o seu n° do cartao? R$');
@@ -168,7 +171,7 @@ export class BibliotecaUI{
     
 }
 
-/*"Game of Thrones", "J. R. R. Martin", "Viena", new Date(), "OJASNISAI", 25*/
+
 
 
   /* testes da readlineSync

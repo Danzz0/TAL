@@ -26,7 +26,7 @@ export class Cartao {
     private verificaCartao(cardNum: string, cvv: string): boolean {
 
 
-        let verify: boolean;
+      
         const VerificaQTD_Card = /^\d{16}$/.test(cardNum.replace(/\s/g, ''));
         const VerificaNUM_Card = /^\d+$/.test(cardNum.replace(/\s/g, ''))
         const VerificaQTD_Cvv = /^\d{3}$/.test(cvv.replace(/\s/g, ''))

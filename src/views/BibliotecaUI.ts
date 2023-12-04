@@ -112,9 +112,9 @@ export class BibliotecaUI{
         console.log(" Insira dos dados do seu cartão? \n");
         banco =  rl.question('Qual o banco? ');
         agencia = rl.question('Qual a sua agencia? ');
-        cardNum = rl.question('Qual o seu n° do cartao? R$');
-        cvv = rl.question('Qual o cvv? ');
-        saldo = rl.question('Qual o saldo? ');
+        cardNum = rl.question('Qual o seu numero do cartao?(16 digitos) ');
+        cvv = rl.question('Qual o cvv?(3 digitos) ');
+        saldo = rl.question('Qual o saldo? R$');
         console.log("processando dados... \n")
 
         const card1 = new Cartao(banco, agencia, cardNum, cvv, saldo);
@@ -132,7 +132,7 @@ export class BibliotecaUI{
 
     public menu(){
 
-        let options = ['Registrar um livro', 'Registrar conta de cliente', 'Registrar cartão de crédito']
+        let options = ['Registrar um livro', 'Registrar conta de cliente', 'Registrar cartao de credito']
 
         console.log("===========Biblioteca===========");
         console.log("              MENU            \n");
@@ -153,7 +153,7 @@ export class BibliotecaUI{
                     console.log("Finalizado CLI");
 
                     break;
-                case 'Registrar cartão de crédito':
+                case 'Registrar cartao de credito':
                     console.log(`ok, excecutando ${options[index]} \n`);
                     this.registrarCartao();
                     console.log("Finalizando CRD");

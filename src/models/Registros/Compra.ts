@@ -1,12 +1,19 @@
-export class Compra {
+
+import { Registro } from '../exportador';
+export class Compra extends Registro{
     private _precoDeCompra: number;
     private _dataDeCompra: Date
     private _qtdDoProduto: number;
     private _nomeDoFornecedor: string;
     private _cnpjDoFornecedor: string;
     
-    constructor(){
-
+    constructor(id:number,precoDaCompra:number, dataDaCompra:Date, qtd:number, fornecedor:string, cnpj: string){
+        super(id);
+        this._precoDeCompra = precoDaCompra;
+        this._dataDeCompra = dataDaCompra;
+        this._qtdDoProduto = qtd;
+        this._nomeDoFornecedor = fornecedor;
+        this._cnpjDoFornecedor = cnpj;
     }
 
     

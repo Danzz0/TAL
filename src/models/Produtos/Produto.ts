@@ -3,6 +3,7 @@ export abstract class Produto{
     private _id: number;
     
     constructor(id:number, tipoDeProduto:string){
+        this.id = id;
         this._tipo = tipoDeProduto;
     }
     //Tipo

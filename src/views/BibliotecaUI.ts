@@ -1,10 +1,12 @@
 import * as rl from 'readline-sync'
-import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios} from '../models/exportador'
+import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
+import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios, Compra} from '../models/exportador'
 
 export class BibliotecaUI{
     
     private _CardEstq = new BancoDeUsuarios();
     private _Estq = new BancoDeEstoque();
+    private _EstqRegister = new BancoDeRegistros();
     
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
@@ -28,7 +30,13 @@ export class BibliotecaUI{
         const book1 = new Livro(id,"livro", titulo, autor, editora, new Date(), info, preco)
         this._Estq.addLivro(book1);
         console.log("Seu Livro foi criado e armazenado no nosso estoque: \n")
-        
+
+
+        //Esse sistema deve acontecer antes de um livro ser registrado (Autor: Funcionário/ADM)
+        //Antes de um livro ser registrado no sistema, ele deve ser comprado!
+        const compraDeLivro = new Compra(1,book1.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.");
+        this._EstqRegister.addCompra(compraDeLivro)
+
         console.log(this.showProdutos(this._Estq.meusProdutos));
     }
 

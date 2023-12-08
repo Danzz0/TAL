@@ -1,4 +1,4 @@
-import { Produto,Livro } from "../../exportador";
+import { Produto,Livro,} from "../../exportador";
 
 export class BancoDeEstoque {
    
@@ -27,8 +27,17 @@ export class BancoDeEstoque {
         } else {
             this._livros.push(book)
         }
-        
 
+       
+        
+        
+        /*
+            private _precoDeCompra: number;
+            private _dataDeCompra: Date
+            private _qtdDoProduto: number;
+            private _nomeDoFornecedor: string;
+            private _cnpjDoFornecedor: string; 
+         */
     }
     
         

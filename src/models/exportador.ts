@@ -10,3 +10,4 @@ export * from "./Biblioteca/Bancos/BancoDeUsuarios";
 export * from "../controllers/ProdutoController";
 export * from "../views/BibliotecaUI";
 export * from "../controllers/CartaoController";
+export * from "./Registros/Registro";

@@ -1,5 +1,5 @@
 
-import { Livro, Compra, Registro } from "../../exportador";
+import { Livro, NotaFiscal, Registro, Venda } from "../../exportador";
 
 
 export class BancoDeRegistros{
@@ -7,7 +7,8 @@ export class BancoDeRegistros{
     // (pertence a biblioteca)
 
     private _listaDeRegistros: Registro[][] = [];
-    private _compras: Compra[] = [];
+    private _compras: NotaFiscal[] = [];
+    private _vendas: Venda[] = [];
     
 
 
@@ -19,10 +20,10 @@ export class BancoDeRegistros{
        
         */
 
-        this._listaDeRegistros.push(this._compras)
+        this._listaDeRegistros.push(this._compras, this._vendas)
     }
 
-    public addCompra(compra:Compra): void{
+    public addCompra(compra:NotaFiscal): void{
         // aqui vai ter que ter uma verificação update
         if(this.verificaCompra(compra)){
             console.log("O livro já existe!")
@@ -44,7 +45,7 @@ export class BancoDeRegistros{
     }
     
         
-    private verificaCompra(compra:Compra): boolean{
+    private verificaCompra(compra:NotaFiscal): boolean{
         var encontrado: boolean = false;
         for(let i = 0; i < this._listaDeRegistros.length; i++){
             for(let j = 0; j < this._listaDeRegistros[i].length; j++){
@@ -67,8 +68,12 @@ export class BancoDeRegistros{
     }
 
 
-    public get minhasCompras(): Compra[] {
+    public get minhasCompras(): NotaFiscal[] {
         return this._compras;
+    }
+
+    public get minhasVendas(): Venda[]{
+        return this._vendas;
     }
     
 

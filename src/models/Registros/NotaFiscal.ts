@@ -1,19 +1,22 @@
 
-import { Registro } from '../exportador';
-export class Compra extends Registro{
+import { Registro, Produto } from '../exportador';
+//Classe de Reposição de Estoque
+export class NotaFiscal extends Registro{
     private _precoDeCompra: number;
     private _dataDeCompra: Date
-    private _qtdDoProduto: number;
+    private _qtdDoProduto: number; // se a quantidade for maior que um, o produto deve ser duplicado com um id diferente do anterior
     private _nomeDoFornecedor: string;
     private _cnpjDoFornecedor: string;
+    private _listaDeProdutos: Produto[] = [];
     
-    constructor(id:number,precoDaCompra:number, dataDaCompra:Date, qtd:number, fornecedor:string, cnpj: string){
+    constructor(id:number,precoDaCompra:number, dataDaCompra:Date, qtd:number, fornecedor:string, cnpj: string, produto:Produto){
         super(id);
         this._precoDeCompra = precoDaCompra;
         this._dataDeCompra = dataDaCompra;
         this._qtdDoProduto = qtd;
         this._nomeDoFornecedor = fornecedor;
         this._cnpjDoFornecedor = cnpj;
+        this._listaDeProdutos.push(produto);
     }
 
     

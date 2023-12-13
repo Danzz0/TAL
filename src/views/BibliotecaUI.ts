@@ -1,10 +1,10 @@
 import * as rl from 'readline-sync'
 import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
-import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios, Compra} from '../models/exportador'
+import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios, NotaFiscal} from '../models/exportador'
 
 export class BibliotecaUI{
     
-    private _CardEstq = new BancoDeUsuarios();
+    
     private _Estq = new BancoDeEstoque();
     private _EstqRegister = new BancoDeRegistros();
     
@@ -34,7 +34,7 @@ export class BibliotecaUI{
 
         //Esse sistema deve acontecer antes de um livro ser registrado (Autor: Funcionário/ADM)
         //Antes de um livro ser registrado no sistema, ele deve ser comprado!
-        const compraDeLivro = new Compra(1,book1.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.");
+        const compraDeLivro = new NotaFiscal(1,book1.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.", book1);
         this._EstqRegister.addCompra(compraDeLivro)
 
         console.log(this.showProdutos(this._Estq.meusProdutos));
@@ -125,12 +125,11 @@ export class BibliotecaUI{
         saldo = rl.question('Qual o saldo? R$');
         console.log("processando dados... \n")
 
-        const card1 = new Cartao(banco, agencia, cardNum, cvv, saldo);
+        const card1 = new CartaoController(banco, agencia, cardNum, cvv, saldo);
         
-        this._CardEstq.addCartao(card1);
-        console.log(this._CardEstq.meusCartoes); // não possui memória (apaga os cartões toda vez que o código reinicia)
+         // não possui memória (apaga os cartões toda vez que o código reinicia)
 
-        return card1;
+        return card1.cartaoSelected;
     }
 
    

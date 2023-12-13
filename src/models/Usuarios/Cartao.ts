@@ -10,39 +10,16 @@ export class Cartao {
 
     constructor(nomeDoBanco: string, nomeAgencia: string, numDoCartao: string, cvv: string, saldo: number) {
 
-        if (this.verificaCartao(numDoCartao, cvv)) {
-            this._cardNum = numDoCartao;
-            this._cvv = cvv;
-            this._nomeBanco = nomeDoBanco;
-            this._agencia = nomeAgencia;
-            this._saldo = saldo;
-        } else {
-            throw new Error("Erro nos dados do cartão ou no CVV")
-        }
+        
+        this._cardNum = numDoCartao;
+        this._cvv = cvv;
+        this._nomeBanco = nomeDoBanco;
+        this._agencia = nomeAgencia;
+        this._saldo = saldo;
+        
 
     }
 
-    // Controller
-    private verificaCartao(cardNum: string, cvv: string): boolean {
-
-
-      
-        const VerificaQTD_Card = /^\d{16}$/.test(cardNum.replace(/\s/g, ''));
-        const VerificaNUM_Card = /^\d+$/.test(cardNum.replace(/\s/g, ''))
-        const VerificaQTD_Cvv = /^\d{3}$/.test(cvv.replace(/\s/g, ''))
-        const VerificaNUM_Cvv = /^\d+$/.test(cvv.replace(/\s/g, ''));
-
-
-        if ((VerificaQTD_Card && VerificaNUM_Card) && (VerificaQTD_Cvv && VerificaNUM_Cvv)) {
-            return true
-        } else {
-            return false
-        }
-
-        // Verifica se a string contém apenas dígitos numéricos e tem o formato correto
-
-
-    }
 
     //Nome do banco
     public get nomeBanco(): string {

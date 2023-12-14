@@ -8,6 +8,7 @@ export class BibliotecaUI{
     private _Estq = new BancoDeEstoque();
     private _EstqRegister = new BancoDeRegistros();
     
+
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
         let autor:string;
@@ -84,7 +85,7 @@ export class BibliotecaUI{
             card = rl.question('Digite o n° do seu cartao: ');
             let ctrlCard = new CartaoController();
             //se o cartão existe:
-            if(ctrlCard.existeCartao(numCard, this._CardEstq.meusCartoes)){
+            if(ctrlCard.existeCartao(numCard)){
                 card = ctrlCard.cartaoSelected;       // vincula esse cartao à conta do cliente
             } else {
                 if(rl.keyInYN('O senhor deseja registrar um cartao?')){
@@ -126,7 +127,7 @@ export class BibliotecaUI{
         console.log("processando dados... \n")
 
         const card1 = new CartaoController(banco, agencia, cardNum, cvv, saldo);
-        
+        card1.cartaoSelected
          // não possui memória (apaga os cartões toda vez que o código reinicia)
 
         return card1.cartaoSelected;

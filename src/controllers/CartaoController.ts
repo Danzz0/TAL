@@ -20,9 +20,8 @@ export class CartaoController{
     
 
 
-    
+    // Verifica se a string contém apenas dígitos numéricos e tem o formato correto
     private verificaCartao(cardNum: string, cvv: string): boolean {
-
 
       
         const VerificaQTD_Card = /^\d{16}$/.test(cardNum.replace(/\s/g, ''));
@@ -37,17 +36,14 @@ export class CartaoController{
             return false;
         }
 
-        // Verifica se a string contém apenas dígitos numéricos e tem o formato correto
-
-
     }
     
     
     
     
     
-    
-    public existeCartao(num:string, listaCard:Cartao[]): Boolean{
+    // se esse cartão já existir, retorna true 
+    public existeCartao(num:string, listaCard:Cartao[] = this._CardEstq.meusCartoes): Boolean{
         
         
         let encontrado = listaCard.some((value,index) =>{
@@ -59,11 +55,6 @@ export class CartaoController{
                 }
             })
 
-        // for(let i=0; i<listaCard.length; i++){
-        //     if(listaCard[i]){
-
-        //     }
-        // }
         return encontrado;
     }
 

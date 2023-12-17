@@ -3,8 +3,8 @@ import {Cartao, BancoDeUsuarios,} from "../models/exportador";
 export class CartaoController{
     private _cartaoSelected: Cartao;
     private _CardEstq = new BancoDeUsuarios();
+    private _cartaoEncontrado: Cartao;
     
-   
 
     constructor(nomeDoBanco?:string, agencia?:string, numeroDoCartao?:string, cvv?:string, saldoDoCartao?:number){
         if(this.verificaCartao(numeroDoCartao, cvv)){
@@ -48,7 +48,7 @@ export class CartaoController{
         
         let encontrado = listaCard.some((value,index) =>{
                 if(value.cardNum == num){
-                    this._cartaoSelected = value;
+                    this._cartaoEncontrado = value;
                     return true;
                 } else {
                     return false;
@@ -66,6 +66,14 @@ export class CartaoController{
     public get cartoes() {
         return this._CardEstq;
     }
+
+    public get cartaoEncontrado(): Cartao {
+        let cardDiscovered = this._cartaoEncontrado;
+        this._cartaoEncontrado = null
+        return cardDiscovered;
+    }
+  
+   
     
 
 }

@@ -1,13 +1,13 @@
 import * as rl from 'readline-sync'
 import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
-import {Livro, Produto, BancoDeEstoque, Cartao, Cliente, CartaoController, BancoDeUsuarios, NotaFiscal} from '../models/exportador'
+import {Produto, Cartao, Cliente, CartaoController, NotaFiscal, LivroController} from '../models/exportador'
 
 export class BibliotecaUI{
     
     
-    private _Estq = new BancoDeEstoque();
+
     private _EstqRegister = new BancoDeRegistros();
-    
+    private _cardController: CartaoController = new CartaoController();
 
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
@@ -28,17 +28,16 @@ export class BibliotecaUI{
         console.log("processando dados... \n")
         
 
-        const book1 = new Livro(id,"livro", titulo, autor, editora, new Date(), info, preco)
-        this._Estq.addLivro(book1);
+        const bookCTRL = new LivroController(id,"livro", titulo, autor, editora, new Date(), info, preco)
         console.log("Seu Livro foi criado e armazenado no nosso estoque: \n")
 
 
         //Esse sistema deve acontecer antes de um livro ser registrado (Autor: Funcionário/ADM)
         //Antes de um livro ser registrado no sistema, ele deve ser comprado!
-        const compraDeLivro = new NotaFiscal(1,book1.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.", book1);
+        const compraDeLivro = new NotaFiscal(1,bookCTRL.livroSelected.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.", bookCTRL.livroSelected);
         this._EstqRegister.addCompra(compraDeLivro)
 
-        console.log(this.showProdutos(this._Estq.meusProdutos));
+        console.log(this.showProdutos(bookCTRL.Estq.meusProdutos));
     }
 
 
@@ -63,38 +62,43 @@ export class BibliotecaUI{
     }
 
 
-    public registrarConta_CLI(): void{
+    
+
+
+    public registrarConta(_args?:any): void{
         let nome:string;
         let email:string;
         let pass:string;
         let data:Date = new Date(); 
         let cep:string;
-        let numCard:string;
-        let card: Cartao;
+        let numCard:string; // ?? eu declarei essa variável mas eu n dei valor nenhum à ela
+        let card: Cartao; // ?? card é declarado com o tipo Cartao, mas dps recebe uma string(linha 85)
        
+        if(_args == "CLI"){
 
+        } else if(_args == "ADM"){
+            
+        }
         console.log("===========Biblioteca===========");
         console.log("     Deseja criar uma conta?  \n");
         nome =  rl.question('Digite o seu nome: ');
         email = rl.question('Digite o seu email: ');
         pass = rl.question('Crie uma senha: ', {hideEchoBack:true});
-        // data = rl.question('Digite a sua data de nascimento:') (a ser implementado);
         cep = rl.question('Digite seu o cep: ');
         
         if(rl.keyInYN('Voce possui um cartao?')){
-            card = rl.question('Digite o n° do seu cartao: ');
-            let ctrlCard = new CartaoController();
+            numCard = rl.question('Digite o n° do seu cartao: ');
+           
             //se o cartão existe:
-            if(ctrlCard.existeCartao(numCard)){
-                card = ctrlCard.cartaoSelected;       // vincula esse cartao à conta do cliente
+            if(this._cardController.existeCartao(numCard)){
+                card = this._cardController.cartaoEncontrado; // vincula esse cartao à conta do cliente
+
+            } else if(rl.keyInYN('O senhor deseja registrar um cartao?')) {
+                card = this.registrarCartao();
             } else {
-                if(rl.keyInYN('O senhor deseja registrar um cartao?')){
-                    card = this.registrarCartao();
-                } else {
-                    card = null;
-                    console.log("Ok, conta sendo criada...")
+                card = null;
+                console.log("Ok, conta sendo criada...")
                 }
-            }
         } else if(rl.keyInYN("O senhor deseja registrar um cartao?(S/N) ")){            
             card = this.registrarCartao();
         } else {
@@ -107,6 +111,9 @@ export class BibliotecaUI{
 
 
     }
+
+
+
 
   
 
@@ -127,11 +134,13 @@ export class BibliotecaUI{
         console.log("processando dados... \n")
 
         const card1 = new CartaoController(banco, agencia, cardNum, cvv, saldo);
-        card1.cartaoSelected
+        
          // não possui memória (apaga os cartões toda vez que o código reinicia)
 
         return card1.cartaoSelected;
     }
+
+    
 
    
 
@@ -157,7 +166,7 @@ export class BibliotecaUI{
                     break;
                 case 'Registrar conta de cliente':
                     console.log(`ok, excecutando ${options[index]} \n`);
-                    this.registrarConta_CLI();
+                    this.registrarConta();
                     console.log("Finalizado CLI");
 
                     break;

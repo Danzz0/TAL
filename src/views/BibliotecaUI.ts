@@ -1,12 +1,12 @@
 import * as rl from 'readline-sync'
-import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
-import {Produto, Cartao, Cliente, CartaoController, NotaFiscal, LivroController} from '../models/exportador'
+// import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
+import {Produto, Cartao, Cliente, CartaoController, LivroController} from '../models/exportador'
 
 export class BibliotecaUI{
     
     
 
-    private _EstqRegister = new BancoDeRegistros();
+    // private _EstqRegister = new BancoDeRegistros();
     private _cardController: CartaoController = new CartaoController();
 
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
@@ -34,8 +34,8 @@ export class BibliotecaUI{
 
         //Esse sistema deve acontecer antes de um livro ser registrado (Autor: Funcionário/ADM)
         //Antes de um livro ser registrado no sistema, ele deve ser comprado!
-        const compraDeLivro = new NotaFiscal(1,bookCTRL.livroSelected.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.", bookCTRL.livroSelected);
-        this._EstqRegister.addCompra(compraDeLivro)
+        // const compraDeLivro = new NotaFiscal(1,bookCTRL.livroSelected.sale, new Date(), 1 , "BookWire", " XX. XXX. XXX/0001-XX.", bookCTRL.livroSelected);
+        // this._EstqRegister.addCompra(compraDeLivro)
 
         console.log(this.showProdutos(bookCTRL.Estq.meusProdutos));
     }

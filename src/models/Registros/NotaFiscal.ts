@@ -1,4 +1,5 @@
 
+/*
 import { Registro, Produto } from '../exportador';
 //Classe de Reposição de Estoque
 export class NotaFiscal extends Registro{
@@ -68,4 +69,4 @@ export class NotaFiscal extends Registro{
 
 
 
-}
+}*/

@@ -1,4 +1,4 @@
-export class Registro{
+/*export class Registro{
     private _id: number;
    
     constructor(id:number){
@@ -12,4 +12,4 @@ export class Registro{
         this._id = value;
     }
     
-}
+}*/

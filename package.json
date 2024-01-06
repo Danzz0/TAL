@@ -11,10 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "-": "^0.0.1",
-    "@types/node": "^20.8.9",
+    "@types/node": "^20.10.6",
     "D": "^1.0.0",
     "readline-sync": "^1.4.10",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

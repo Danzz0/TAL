@@ -8,14 +8,15 @@ export class CartaoController {
 
     constructor(nomeDoBanco?: string, agencia?: string, numeroDoCartao?: string, cvv?: string, saldoDoCartao?: number) {
         if (numeroDoCartao && cvv) {
-            
-            if (!this.verificaCartao(numeroDoCartao, cvv)) {
+            let cartaoValido = this.validaCartao(numeroDoCartao, cvv)
+
+            if (!cartaoValido) {
                 throw new Error("Erro nos dados do cartão ou no CVV")
             }
 
-            const cardVerificado = new Cartao(nomeDoBanco, agencia, numeroDoCartao, cvv, saldoDoCartao);
-            this._CardEstq.addCartao(cardVerificado);
-            this._cartaoSelected = cardVerificado;
+            this._cartaoSelected = new Cartao(nomeDoBanco, agencia, numeroDoCartao, cvv, saldoDoCartao);
+            this._CardEstq.addCartao(this._cartaoSelected);
+            
 
             console.log(this._CardEstq.meusCartoes);
 
@@ -26,7 +27,7 @@ export class CartaoController {
 
 
     // Verifica se a string contém apenas dígitos numéricos e tem o formato correto
-    private verificaCartao(cardNum: string, cvv: string): boolean {
+    private validaCartao(cardNum: string, cvv: string): boolean {
 
         const QUANTIDADE_CARD = /^\d{16}$/.test(cardNum.replace(/\s/g, ''));
         const TEM_NUMEROS_CARD = /^\d+$/.test(cardNum.replace(/\s/g, ''));
@@ -74,7 +75,8 @@ export class CartaoController {
 
     public get cartaoEncontrado(): Cartao {
         let cardDiscovered = this._cartaoEncontrado;
-        this._cartaoEncontrado = null
+        this._cartaoEncontrado = null; // limpa o último cartão encontrado
+
         return cardDiscovered;
     }
 

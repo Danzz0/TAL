@@ -11,4 +11,8 @@ export * from "../controllers/ProdutoController";
 export * from "../views/BibliotecaUI";
 export * from "../controllers/LivroController";
 export * from "../controllers/CartaoController";
+export * from "../views/ClienteUI";
+export * from "../views/AdminUI";
+
+
 // export * from "./Registros/Registro";

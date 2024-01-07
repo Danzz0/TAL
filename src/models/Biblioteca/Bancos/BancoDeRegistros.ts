@@ -1,7 +1,11 @@
 
-import { Livro, NotaFiscal, Registro, Venda } from "../../exportador";
+
+//EM MANUTENCAO
 
 
+// import { Livro, NotaFiscal, Registro, Venda } from "../../exportador";
+
+/*
 export class BancoDeRegistros{
     // listas de todos os tipos de registros que serão organizada na Biblioteca pelo seu Controller 
     // (pertence a biblioteca)
@@ -16,9 +20,7 @@ export class BancoDeRegistros{
     constructor(){
 
         
-        /*
-       
-        */
+        
 
         this._listaDeRegistros.push(this._compras, this._vendas)
     }
@@ -35,13 +37,13 @@ export class BancoDeRegistros{
        
         
         
-        /*
+        
             private _precoDeCompra: number;
             private _dataDeCompra: Date
             private _qtdDoProduto: number;
             private _nomeDoFornecedor: string;
             private _cnpjDoFornecedor: string; 
-         */
+         
     }
     
         
@@ -85,3 +87,5 @@ export class BancoDeRegistros{
     }
 
 }
+
+*/

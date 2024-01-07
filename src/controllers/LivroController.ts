@@ -5,21 +5,20 @@ export class LivroController{
     private _Estq = new BancoDeEstoque();
     
     constructor(id?:number, tipoDeProduto?:string, titulo?:string, autor?:string, editora?:string, dataDeLancamento?:Date, info?:string, preco?:number  ){
+
         if(this.existeLivro(id, this._Estq.meusLivros)){
             throw new Error("Este livro já foi cadastrado"); 
-        } else {
-            const book = new Livro(id, tipoDeProduto, titulo, autor, editora, dataDeLancamento, info, preco)
-            this._livroSelected = book;
-            this._Estq.addLivro(this._livroSelected)
         }
 
+        const book = new Livro(id, tipoDeProduto, titulo, autor, editora, dataDeLancamento, info, preco)
+        this._livroSelected = book;
+        this._Estq.addLivro = this._livroSelected
+        
+
     }
 
 
 
-    public verificaLivro(){
-
-    }
 
     public existeLivro(id:number, listaLivros:Livro[]): Boolean{
         
@@ -35,6 +34,12 @@ export class LivroController{
 
         return encontrado;
     }
+
+
+
+
+
+
 
 
 

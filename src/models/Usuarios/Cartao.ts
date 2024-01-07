@@ -63,12 +63,6 @@ export class Cartao {
     }
 
 
-    // public getCard() : void{
-    //     console.log([
-    //         this._nomeBanco,
-    //         this._cardNum
-    //     ])
-    // }
 
 
 

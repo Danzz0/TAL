@@ -2,7 +2,7 @@ export class Cartao {
 
     private _nomeBanco: string;
     private _agencia: string;
-    private _cardNum: string; // ID 
+    private _numeroDoCartao: string; // ID 
     private _cvv: string;
     private _saldo: number;
 
@@ -11,7 +11,7 @@ export class Cartao {
     constructor(nomeDoBanco: string, nomeAgencia: string, numDoCartao: string, cvv: string, saldo: number) {
 
         
-        this._cardNum = numDoCartao;
+        this._numeroDoCartao = numDoCartao;
         this._cvv = cvv;
         this._nomeBanco = nomeDoBanco;
         this._agencia = nomeAgencia;
@@ -38,11 +38,11 @@ export class Cartao {
     }
 
     // N° do cartão
-    public get cardNum(): string {
-        return this._cardNum;
+    public get numeroDoCartao(): string {
+        return this._numeroDoCartao;
     }
-    public set cardNum(value: string) {
-        this._cardNum = value;
+    public set numeroDoCartao(value: string) {
+        this._numeroDoCartao = value;
     }
 
     //CVV / CVC

@@ -1,26 +1,26 @@
-import { Cartao, BancoDeUsuarios, } from "../models/exportador";
+import { BancoDeCartoes, Cartao, BancoDeUsuarios, } from "../models/exportador";
 
 export class CartaoController {
     private _cartaoSelected: Cartao;
-    private _CardEstq = new BancoDeUsuarios();
     private _cartaoEncontrado: Cartao;
 
 
-    constructor(nomeDoBanco?: string, agencia?: string, numeroDoCartao?: string, cvv?: string, saldoDoCartao?: number) {
+    constructor(nomeDoBanco?: string, agencia?: string, numeroDoCartao?: string, cvv?: string, saldoDoCartao?: number, meusCartoes?:Cartao[]) {
         if (numeroDoCartao && cvv) {
-            let cartaoValido = this.validaCartao(numeroDoCartao, cvv)
 
+            let cartaoValido = this.validaCartao(numeroDoCartao, cvv);
             if (!cartaoValido) {
-                throw new Error("Erro nos dados do cartão ou no CVV")
+                throw new Error("Erro nos dados do cartão ou no CVV");
+            }
+
+            let cartaoJaExiste = this.existeCartao(numeroDoCartao, meusCartoes)
+            if (cartaoJaExiste){
+                throw new Error("Cartao já existe!");
             }
 
             this._cartaoSelected = new Cartao(nomeDoBanco, agencia, numeroDoCartao, cvv, saldoDoCartao);
-            this._CardEstq.addCartao(this._cartaoSelected);
-            
 
-            console.log(this._CardEstq.meusCartoes);
-
-        } 
+        }
 
     }
 
@@ -38,9 +38,10 @@ export class CartaoController {
 
         if ((QUANTIDADE_CARD && TEM_NUMEROS_CARD) && (QUANTIDADE_CVV && TEM_NUMEROS_CVV)) {
             return true;
-        } else {
-            return false;
         }
+        
+        return false;
+        
 
     }
 
@@ -49,11 +50,10 @@ export class CartaoController {
 
 
     // se esse cartão já existir, retorna true 
-    public existeCartao(num: string, listaCard: Cartao[] = this._CardEstq.meusCartoes): Boolean {
-
+    public existeCartao(num: string, listaCard: Cartao[]): Boolean {
 
         let encontrado = listaCard.some((value, index) => {
-            if (value.cardNum == num) {
+            if (value.numeroDoCartao == num) {
                 this._cartaoEncontrado = value;
                 return true;
             } else {
@@ -69,10 +69,7 @@ export class CartaoController {
         return this._cartaoSelected;
     }
 
-    public get cartoes() {
-        return this._CardEstq;
-    }
-
+    
     public get cartaoEncontrado(): Cartao {
         let cardDiscovered = this._cartaoEncontrado;
         this._cartaoEncontrado = null; // limpa o último cartão encontrado

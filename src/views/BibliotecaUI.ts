@@ -13,7 +13,7 @@ export class BibliotecaUI{
         let email:string;
         let pass:string;
         let cep:string;
-
+        let dataDeNascimento = new Date();
         
         
         console.log("===========Biblioteca===========");
@@ -23,27 +23,36 @@ export class BibliotecaUI{
         pass = rl.question('Crie uma senha: ', {hideEchoBack:true});
         cep = rl.question('Digite seu cep: ');
 
-        this.verificaCadastro(nome, email, pass, cep)
+        const SENHA_DE_ADM = this.verificaCadastro(pass)
+
+        if ( SENHA_DE_ADM ){
+            this._adminUI.menu();
+            return
+        }
+
+        this._clienteUI.registrarConta(nome, email, pass, dataDeNascimento, cep)
+
         
     }
 
 
 
-
+    // falta o banco de dados
     public logar(){
 
     }
 
-    private verificaCadastro(nome:string, email:string, senha:string, cep:string,){
-        let data:Date = new Date(); 
+    private verificaCadastro(senha:string): boolean{
 
         const CADASTRO_DE_ADM = /AFK$/.test(senha);
+
         if(CADASTRO_DE_ADM){
             // loga como admin
-            return; // early return
+            return true; // early return
         }
 
-        this._clienteUI.registrarConta(nome, email, senha, data, cep)
+        return false;
+       
 
     }
 
@@ -67,15 +76,17 @@ export class BibliotecaUI{
             case 'Login':
                 console.log(`ok, excecutando ${options[index]} \n`);
                 this.logar();
-                console.log("Finalizado CLI");
 
                 break;
             default:
-
+                console.log("Finalizado CLI");
                 break;
                 
         }    
     }
+
+
+
         
 }
 

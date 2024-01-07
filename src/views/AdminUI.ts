@@ -5,6 +5,46 @@ import {LivroController, Produto} from '../models/exportador'
 export class AdminUI{
 
 
+    public menu(){
+        let options = ['Registrar livro', 'Atualizar Produto', 'Deletar Produto', 'Exibir Estoque' ]
+
+        console.log("===========Biblioteca===========");
+        console.log("              MENU            \n");
+        let index =  rl.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
+        
+        
+        
+        switch(options[index]){
+            case 'Registrar livro':
+                console.log(`ok, excecutando ${options[index]} \n`);
+                this.registrarLivro()
+                break;
+            case 'Atualizar Produto':
+                console.log(`ok, excecutando ${options[index]} \n`);
+                
+                // método que atualiza
+
+                break;
+            case 'Deletar Produto':
+                console.log(`ok, excecutando ${options[index]} \n`);
+
+                // método que deleta
+
+                break;
+            case 'Exibir Estoque':
+                console.log(`ok, excecutando ${options[index]} \n`);
+
+                // this.showProdutos();
+                
+                break;
+            default:
+                console.log("Finalizado ADM");
+                break;
+                
+        }
+    }
+
+
     public registrarLivro(): void{ // está aceitando valores inválidos (controller tem que ajeitar)
         let titulo:string;
         let autor:string;

@@ -7,15 +7,18 @@ export class Cliente extends Usuario{
     
     private _cartao: Cartao;
     private _cep: string;
+    private _id: number;
+    
     
      
 
-    constructor(nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao?:Cartao){
+    constructor(id:number,nome:string, email:string, senha:string, dataDeNascimento:Date, cep:string, cartao?:Cartao){
         super(nome,email,senha,dataDeNascimento);
 
         if(cartao){
             this._cartao = cartao;
         } 
+        this._id = id;
         this._cep = cep
     }
 
@@ -28,13 +31,19 @@ export class Cliente extends Usuario{
         this._cartao = v;
     }
 
-    //CEP
+    // CEP
     public get cep(): string {
         return this._cep;
     }
     public set cep(value: string) {
         this._cep = value;
     }
+
+    // ID
+    public get id(): number {
+        return this._id;
+    }
+    
 
 
 

@@ -1,17 +1,16 @@
-import {Cartao} from "../../exportador";
+import { Cliente } from "../../exportador";
 export class BancoDeUsuarios{
 
-    private _listaDeCartoes: Cartao[] = [];
-   
+    private _listaDeClientes: Cliente[] = [];
 
-    public addCartao(card:Cartao):void{
-        
-        this._listaDeCartoes.push(card);
+    
+
+    public set addCliente(cliente:Cliente){
+        this._listaDeClientes.push(cliente)
     }
 
-
-    public get meusCartoes(): Cartao[] {
-        return this._listaDeCartoes;
+    public get todosOsClientes(): Cliente[]{
+        return this._listaDeClientes;
     }
 
     // listas de todos os tipos de usuários (pertence a Biblioteca)

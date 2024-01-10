@@ -1,6 +1,6 @@
 import * as input from 'readline-sync'
 import { Cartao, CartaoController,  ClienteController, BancoDeCartoes, BancoDeUsuarios} from "../models/exportador"
-
+import { UI } from "../main"
 export class ClienteUI{
 
     private _cardController: CartaoController = new CartaoController();
@@ -13,7 +13,7 @@ export class ClienteUI{
             // Futuras Opções:
         // 'Exibir Catálogo', 'Comprar Livro', 'Adicionar ao carrinho',
 
-        let options = ['Registrar cartao de credito'];
+        let options = ['Registrar cartao de credito', 'Voltar ao menu principal'];
 
         console.log("===========Biblioteca===========");
         console.log("              MENU            \n");
@@ -25,6 +25,11 @@ export class ClienteUI{
             case 'Registrar cartao de credito':
                 this.registrarCartao();
                 break;
+
+            case 'Voltar ao menu principal':
+                UI.menu();
+                break;
+
             default:
                 break;
         }

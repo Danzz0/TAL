@@ -51,15 +51,18 @@ export class CartaoController {
 
     // se esse cartão já existir, retorna true 
     public existeCartao(num: string, listaCard: Cartao[]): Boolean {
-
+        
+        
         let encontrado = listaCard.some((value, index) => {
             if (value.numeroDoCartao == num) {
                 this._cartaoEncontrado = value;
                 return true;
-            } else {
-                return false;
-            }
+            } 
+
+            return false;
         })
+        
+        
 
         return encontrado;
     }

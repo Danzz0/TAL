@@ -5,19 +5,23 @@ export class ClienteController{
     private _clienteEncontrado: Cliente;
 
     constructor(id?:number,nome?:string, email?:string, senha?:string, data?:Date, cep?: string, card?:Cartao, listaDeClientes?: Cliente[]){
-        if(this.existeCliente(id, listaDeClientes)){
-            throw new Error("Cliente já cadastrado :/")
-        }
+        if(id){
+            
+            if(this.existeCliente(id, listaDeClientes)){
+                throw new Error("Cliente já cadastrado :/")
+            }
 
-        this._clienteSelected = new Cliente(id, nome, email, senha, data, cep, card)
-        console.log(this._clienteSelected)
+            this._clienteSelected = new Cliente(id, nome, email, senha, data, cep, card)
+        }
     }
 
 
-    public existeCliente(num: number, listaDeClientes: Cliente[]): Boolean {
+    public existeCliente(id: number, listaDeClientes: Cliente[]): Boolean {
+        
 
+        
         let encontrado = listaDeClientes.some((value, index) => {
-            if (value.id == num) {
+            if (value.id == id) {
                 this._clienteEncontrado = value;
                 return true;
             } 
@@ -25,6 +29,8 @@ export class ClienteController{
             return false;
             
         })
+        
+        
 
         return encontrado;
     }

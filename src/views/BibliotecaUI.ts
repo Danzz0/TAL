@@ -42,8 +42,13 @@ export class BibliotecaUI{
         let email: string;
         let senha: string;
 
-        email = input.question("Digite seu email: ");
+        
         senha = input.question("Digite sua senha: ");
+        if(this.verificaCadastro){
+            // login de adm
+        }
+        this._clienteUI.clienteController.existeCliente(senha)
+
     }
 
     private verificaCadastro(senha:string): boolean{

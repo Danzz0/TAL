@@ -8,6 +8,53 @@ export class BibliotecaUI{
     private _clienteUI: ClienteUI = new ClienteUI();
     private _adminUI: AdminUI = new AdminUI();
 
+
+
+
+
+
+
+
+
+
+
+
+
+    public menu(){
+
+        let options = ['Cadastro', 'Login']
+
+        console.log("===========Biblioteca===========");
+        console.log("              MENU            \n");
+        let index =  input.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
+        
+        
+        switch(options[index]){
+            case 'Cadastro':
+                console.log(`ok, excecutando ${options[index]} \n`);
+                this.cadastrar();
+                break;
+            case 'Login':
+                console.log(`ok, excecutando ${options[index]} \n`);
+                this.logar();
+
+                break;
+            default:
+                console.log("Finalizado CLI");
+                break;
+                
+        }    
+    }
+
+
+
+
+
+
+
+
+    
+
     public cadastrar(){
         let nome:string;
         let email:string;
@@ -31,25 +78,41 @@ export class BibliotecaUI{
         }
 
         this._clienteUI.registrarConta(nome, email, pass, dataDeNascimento, cep)
-
         
     }
+
+
+
 
 
 
     // falta o banco de dados
     public logar(){
-        let email: string;
+        // let email: string;
         let senha: string;
-
+        let bancoDeUsuarios = this._clienteUI.clienteEstq.todosOsClientes;
         
         senha = input.question("Digite sua senha: ");
-        if(this.verificaCadastro){
+        if(this.verificaCadastro(senha)){
             // login de adm
         }
-        this._clienteUI.clienteController.existeCliente(senha)
+        
+        // falta o early return
+        (() => {
+            const CLIENTE_EXISTE = this._clienteUI.clienteController.existeCliente(senha, bancoDeUsuarios)
+
+            if( CLIENTE_EXISTE ){
+                const CLIENTE_ENCONTRADO = this._clienteUI.clienteController.clienteEncontrado;
+                console.log("Cliente encontrado:", JSON.stringify(CLIENTE_ENCONTRADO, null, 2));
+
+            }
+
+        })()
 
     }
+
+
+
 
     private verificaCadastro(senha:string): boolean{
 
@@ -67,32 +130,7 @@ export class BibliotecaUI{
 
 
 
-    public menu(){
-
-        let options = ['Cadastro', 'Login']
-
-        console.log("===========Biblioteca===========");
-        console.log("              MENU            \n");
-        let index =  input.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
-        
-        
-        
-        switch(options[index]){
-            case 'Cadastro':
-                console.log(`ok, excecutando ${options[index]} \n`);
-                this.cadastrar();
-                break;
-            case 'Login':
-                console.log(`ok, excecutando ${options[index]} \n`);
-                this.logar();
-
-                break;
-            default:
-                console.log("Finalizado CLI");
-                break;
-                
-        }    
-    }
+    
 
 
 

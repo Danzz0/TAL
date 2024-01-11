@@ -24,10 +24,10 @@ export class Cliente extends Usuario{
 
 
     // Cartão
-    public get card() : Cartao {
+    public get cartao() : Cartao {
         return this._cartao
     }
-    public set card(v:Cartao){
+    public set cartao(v:Cartao){
         this._cartao = v;
     }
 

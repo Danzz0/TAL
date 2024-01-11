@@ -10,6 +10,13 @@ export class ClienteUI{
    
 
 
+
+
+
+
+
+
+
     public menu(){
             // Futuras Opções:
         // 'Exibir Catálogo', 'Comprar Livro', 'Adicionar ao carrinho',
@@ -35,6 +42,11 @@ export class ClienteUI{
                 break;
         }
     }
+
+
+
+
+
 
    
     public registrarConta(nome:string, email:string, senha:string, data:Date, cep:string): void{
@@ -70,12 +82,19 @@ export class ClienteUI{
 
 
 
+    
+
+
+
     public registrarCartao(): Cartao{
         let banco:string;
         let agencia:string; 
         let cardNum:string;
         let cvv:string;
         let saldo:number;
+        let senha:string;
+        let bancoDeUsuarios = this._clienteEstq.todosOsClientes;
+
         console.log("===========Biblioteca===========");
         console.log(" Insira dos dados do seu cartão? \n");
         banco =  input.question('Qual o banco? ');
@@ -83,19 +102,47 @@ export class ClienteUI{
         cardNum = input.question('Qual o seu numero do cartao?(16 digitos) ');
         cvv = input.question('Qual o cvv?(3 digitos) ');
         saldo = input.question('Qual o saldo? R$');
+
+        console.log("Para vincular o seu cartão a uma conta digite sua senha de acesso ");
+        senha = input.question('senha: ');
+
         console.log("processando dados... \n");
 
         this._cardController = new CartaoController(banco, agencia, cardNum, cvv, saldo, this._CardEstq.meusCartoes);
         this._CardEstq.addCartao = this._cardController.cartaoSelected;
+
         
-         // não possui memória (apaga os cartões toda vez que o código reinicia)
+        (() => {
+            const CLIENTE_EXISTE = this.clienteController.existeCliente(senha, bancoDeUsuarios)
+
+            if( CLIENTE_EXISTE ){
+
+                const CLIENTE_ENCONTRADO = this._clienteController.clienteEncontrado;
+
+                CLIENTE_ENCONTRADO.cartao = this._cardController.cartaoSelected
+
+                this.menu();
+
+            }
+
+            
+
+        })()
+        
 
         return this._cardController.cartaoSelected;
     }
 
 
+
+
+
     public get clienteController(): ClienteController {
         return this._clienteController;
+    }
+
+    public get clienteEstq(): BancoDeUsuarios {
+        return this._clienteEstq;
     }
    
 

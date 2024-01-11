@@ -16,6 +16,9 @@ export class ClienteController{
         }
     }
 
+
+
+
     // Vou aplicar polimorfismo método irá funcionar com senha e id
     public existeCliente(chaveExistente: any, listaDeClientes: Cliente[]): Boolean {
         let encontrado:boolean;
@@ -25,26 +28,20 @@ export class ClienteController{
             
             encontrado = listaDeClientes.some((cliente, index) => {
                 
-                if( !chaveNumerica ){
-                    chaveProcurada = cliente.senha
-                } else {
+                if( chaveNumerica ){
                     chaveProcurada = cliente.id
+                } else {
+                    chaveProcurada = cliente.senha
                 }
 
-                
                 
                 if (chaveProcurada == chaveExistente) {
                     this._clienteEncontrado = cliente;
                     return true;
                 } 
-    
                 return false;
                 
             })
-        
-            
-        
-
         
 
         return encontrado;

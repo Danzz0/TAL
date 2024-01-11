@@ -1,4 +1,4 @@
-import * as rl from 'readline-sync'
+import * as input from 'readline-sync'
 // import { BancoDeRegistros } from '../models/Biblioteca/Bancos/BancoDeRegistros';
 import {ClienteUI, AdminUI} from '../models/exportador'
 
@@ -18,10 +18,10 @@ export class BibliotecaUI{
         
         console.log("===========Biblioteca===========");
         console.log("     Deseja criar uma conta?  \n");
-        nome =  rl.question('Digite o seu nome: ');
-        email = rl.question('Digite o seu email: ');
-        pass = rl.question('Crie uma senha: ', {hideEchoBack:true});
-        cep = rl.question('Digite seu cep: ');
+        nome =  input.question('Digite o seu nome: ');
+        email = input.question('Digite o seu email: ');
+        pass = input.question('Crie uma senha: ', {hideEchoBack:true});
+        cep = input.question('Digite seu cep: ');
 
         const SENHA_DE_ADM = this.verificaCadastro(pass)
 
@@ -39,7 +39,11 @@ export class BibliotecaUI{
 
     // falta o banco de dados
     public logar(){
+        let email: string;
+        let senha: string;
 
+        email = input.question("Digite seu email: ");
+        senha = input.question("Digite sua senha: ");
     }
 
     private verificaCadastro(senha:string): boolean{
@@ -64,7 +68,7 @@ export class BibliotecaUI{
 
         console.log("===========Biblioteca===========");
         console.log("              MENU            \n");
-        let index =  rl.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
+        let index =  input.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
         
         
         
@@ -100,7 +104,7 @@ export class BibliotecaUI{
 
         console.log("===========Biblioteca===========");
         console.log("              MENU            \n");
-        let index =  rl.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
+        let index =  input.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
         
         
         
@@ -137,7 +141,7 @@ export class BibliotecaUI{
   /* testes da readlineSync
 
         // Handle the secret text (e.g. password).
-            var favFood = rl.question('What is your favorite food? ', {
+            var favFood = input.question('What is your favorite food? ', {
                 hideEchoBack: true // The typed text on screen is hidden by `*` (default).
         });
 

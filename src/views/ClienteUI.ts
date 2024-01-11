@@ -7,6 +7,7 @@ export class ClienteUI{
     private _CardEstq: BancoDeCartoes = new BancoDeCartoes();
     private _clienteEstq: BancoDeUsuarios = new BancoDeUsuarios();
     private _clienteController: ClienteController = new ClienteController();
+   
 
 
     public menu(){
@@ -93,6 +94,9 @@ export class ClienteUI{
     }
 
 
-  
+    public get clienteController(): ClienteController {
+        return this._clienteController;
+    }
+   
 
 }

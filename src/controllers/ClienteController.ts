@@ -1,12 +1,13 @@
 
-import {Cartao, Cliente, BancoDeUsuarios} from "../models/exportador"
+import {Cartao, Cliente, Livro} from "../models/exportador"
 export class ClienteController{
     private _clienteSelected: Cliente;
     private _clienteEncontrado: Cliente;
+    private _livrosComprados: Livro[];
 
     constructor(id?:number,nome?:string, email?:string, senha?:string, data?:Date, cep?: string, card?:Cartao, listaDeClientes?: Cliente[]){
         if(id){
-            
+
             if(this.existeCliente(id, listaDeClientes)){
                 throw new Error("Cliente já cadastrado :/")
             }
@@ -15,21 +16,35 @@ export class ClienteController{
         }
     }
 
-
-    public existeCliente(id: number, listaDeClientes: Cliente[]): Boolean {
+    // Vou aplicar polimorfismo método irá funcionar com senha e id
+    public existeCliente(chaveExistente: any, listaDeClientes: Cliente[]): Boolean {
+        let encontrado:boolean;
+        let chaveProcurada:any;
+        let chaveNumerica =  typeof chaveExistente == 'number';
         
-
-        
-        let encontrado = listaDeClientes.some((value, index) => {
-            if (value.id == id) {
-                this._clienteEncontrado = value;
-                return true;
-            } 
-
-            return false;
             
-        })
+            encontrado = listaDeClientes.some((cliente, index) => {
+                
+                if( !chaveNumerica ){
+                    chaveProcurada = cliente.senha
+                } else {
+                    chaveProcurada = cliente.id
+                }
+
+                
+                
+                if (chaveProcurada == chaveExistente) {
+                    this._clienteEncontrado = cliente;
+                    return true;
+                } 
+    
+                return false;
+                
+            })
         
+            
+        
+
         
 
         return encontrado;

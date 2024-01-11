@@ -7,7 +7,7 @@ export class ClienteUI{
     private _CardEstq: BancoDeCartoes = new BancoDeCartoes();
     private _clienteEstq: BancoDeUsuarios = new BancoDeUsuarios();
     private _clienteController: ClienteController = new ClienteController();
-   
+    
 
 
 
@@ -31,7 +31,7 @@ export class ClienteUI{
         
         switch(options[index]){
             case 'Registrar cartao de credito':
-                this.registrarCartao();
+                this.registrarCartao(true);
                 break;
 
             case 'Voltar ao menu principal':
@@ -75,6 +75,7 @@ export class ClienteUI{
 
         this._clienteController = new ClienteController(Number(id), nome, email, senha, data, cep, card, this._clienteEstq.todosOsClientes);
         this._clienteEstq.addCliente = this._clienteController.clienteSelected;
+        console.log("foi...")
         this.menu();
 
 
@@ -86,14 +87,13 @@ export class ClienteUI{
 
 
 
-    public registrarCartao(): Cartao{
+    public registrarCartao(chamadoPeloMenu?:boolean): Cartao{
         let banco:string;
         let agencia:string; 
         let cardNum:string;
         let cvv:string;
         let saldo:number;
         let senha:string;
-        let bancoDeUsuarios = this._clienteEstq.todosOsClientes;
 
         console.log("===========Biblioteca===========");
         console.log(" Insira dos dados do seu cartão? \n");
@@ -106,31 +106,40 @@ export class ClienteUI{
         console.log("Para vincular o seu cartão a uma conta digite sua senha de acesso ");
         senha = input.question('senha: ');
 
-        console.log("processando dados... \n");
 
         this._cardController = new CartaoController(banco, agencia, cardNum, cvv, saldo, this._CardEstq.meusCartoes);
         this._CardEstq.addCartao = this._cardController.cartaoSelected;
 
         
-        (() => {
-            const CLIENTE_EXISTE = this.clienteController.existeCliente(senha, bancoDeUsuarios)
+        this.vincularCartao(senha);
 
-            if( CLIENTE_EXISTE ){
+        if( chamadoPeloMenu ) {
+            this.menu()
+            return;
+        }
 
-                const CLIENTE_ENCONTRADO = this._clienteController.clienteEncontrado;
+        return this._cardController.cartaoSelected;
+    }
 
-                CLIENTE_ENCONTRADO.cartao = this._cardController.cartaoSelected
 
-                this.menu();
+   
 
-            }
+
+    public vincularCartao(senha:any){
+
+        const BANCO_DE_USUARIOS = this._clienteEstq.todosOsClientes;
+        const CLIENTE_EXISTE = this.clienteController.existeCliente(senha, BANCO_DE_USUARIOS);
+
+
+        if( CLIENTE_EXISTE ){
+
+            const CLIENTE_ENCONTRADO = this._clienteController.clienteEncontrado;
+
+            CLIENTE_ENCONTRADO.cartao = this._cardController.cartaoSelected
 
             
 
-        })()
-        
-
-        return this._cardController.cartaoSelected;
+        }
     }
 
 

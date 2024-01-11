@@ -53,7 +53,7 @@ export class BibliotecaUI{
 
 
 
-    
+
 
     public cadastrar(){
         let nome:string;
@@ -74,7 +74,7 @@ export class BibliotecaUI{
 
         if ( SENHA_DE_ADM ){
             this._adminUI.menu();
-            return
+            return;
         }
 
         this._clienteUI.registrarConta(nome, email, pass, dataDeNascimento, cep)
@@ -139,45 +139,6 @@ export class BibliotecaUI{
 
     
 
-/*
-
-    public menu(){
-
-        let options = ['Registrar um livro', 'Registrar conta de cliente', 'Registrar cartao de credito']
-
-        console.log("===========Biblioteca===========");
-        console.log("              MENU            \n");
-        let index =  input.keyInSelect(options, 'O que voce quer fazer?', {cancel: 'CANCELAR'});
-        
-        
-        
-        switch(options[index]){
-            case 'Registrar um livro':
-                console.log(`ok, excecutando ${options[index]} \n`);
-                this.registrarLivro();
-
-                break;
-            case 'Registrar conta de cliente':
-                console.log(`ok, excecutando ${options[index]} \n`);
-                this.registrarConta();
-                console.log("Finalizado CLI");
-
-                break;
-            case 'Registrar cartao de credito':
-                console.log(`ok, excecutando ${options[index]} \n`);
-                this.registrarCartao();
-                console.log("Finalizando CRD");
-
-                break;
-            default:
-
-                break;
-                
-        }    
-    }
-
-
-*/
 
 
 
